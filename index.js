@@ -35,6 +35,7 @@ app.get("/stock", (req, res) => {
   res.status(200).json(stock);
 });
 
+
 app.put("/stock/:id", (req, res) => {
     const { id } = req.params;
     const {product, content} = req.body;  
@@ -49,11 +50,12 @@ app.put("/stock/:id", (req, res) => {
     }
 });
 
-app.delete("/stock/:id", (req, res) => {
-    const { id } = req.params;  
 
-    // Find the product by ID and update it
-    const productIndex = stock.findIndex(p => p.id === Number(id));
+app.delete("/stock/:product", (req, res) => {
+    const { product } = req.params;  
+
+    // Find the product by ID and delete it
+    const productIndex = stock.findIndex(p => p.product === product);
     if (productIndex !== -1) {
         stock.splice(productIndex, 1); 
         res.send({ success: true, data: stock });
